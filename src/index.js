@@ -1,8 +1,5 @@
 const express = require('express');
-const https = require('https');
 const cors = require('cors');
-const path = require('path');
-const fs = require('fs')
 
 
 const app = express();
@@ -14,11 +11,6 @@ app.use(cors());
 const router = require('./routers/pypiRouter');
 app.use(router);
 
-const sslServer = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, '../cert', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, '../cert', 'cert.pem'))
-}, app);
-
-sslServer.listen(port, () => {
-    console.log(`Secure Server is up on port ${port}!`)
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}!`)
 });
